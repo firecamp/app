@@ -1,0 +1,25 @@
+<resources>
+
+    <!-- Application Parameters -->
+    <string name="app_name">App</string>
+    <string name="app_facebook_id">490668677710583</string>
+    <string name="app_google_maps_key">AIzaSyCG5hhTN16v-1spLxrwv5fTaXMlqo1mdYM</string>
+
+    <!-- Strings -->
+    <!-- action_ - Menu Items -->
+    <string name="action_log_out">Log out</string>
+
+    <!-- tab_ - Tab Captions -->
+    <string name="tab_map">Map</string>
+    <string name="tab_events">Events</string>
+    <string name="tab_people">People</string>
+    <string name="tab_profile">Profile</string>
+
+    <!-- msg_ - General Info Messages -->
+    <string name="msg_no_events">There are no events to display.</string>
+    <string name="msg_no_people">There are no people to display.</string>
+
+    <!-- Content Description strings, name them cd_<item id> -->
+    <string name="cd_splash_image_view">Splash Image</string>
+
+</resources>
