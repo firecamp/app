@@ -5,7 +5,7 @@
 bin/
 gen/
 libs/
-values/keys*.xml
+res/values/keys*.xml
 .classpath
 .project
 .settings
