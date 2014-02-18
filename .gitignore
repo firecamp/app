@@ -8,5 +8,6 @@ libs/
 .classpath
 .project
 .settings
+keys_*.xml
 local.properties
 project.properties
