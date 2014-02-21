@@ -148,7 +148,7 @@ public class CreateEventActivity extends FragmentActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                String text = String.format("%04d-%02d-%02d", year, monthOfYear + 1, dayOfMonth);
+                String text = String.format("%04d-%02d-%02d", year, monthOfYear, dayOfMonth);
                 button.setText(text);
             }
 
