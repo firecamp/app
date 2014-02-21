@@ -47,8 +47,8 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <provider
-            android:name=".events.EventsContentProvider"
-            android:authorities="ca.xef6.firecamp.events"
+            android:name=".db.ContentProvider"
+            android:authorities="ca.xef6.firecamp.db"
             android:exported="false" />
     </application>
 
