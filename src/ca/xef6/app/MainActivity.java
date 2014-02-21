@@ -7,23 +7,21 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+import ca.xef6.app.ui.FragmentActivity;
 
 import com.facebook.Session;
-import com.facebook.Session.StatusCallback;
 import com.facebook.SessionState;
-import com.facebook.UiLifecycleHelper;
 
 public class MainActivity extends FragmentActivity implements TabListener {
 
-    static final int          TAB_COUNT       = 4;
-    static final Class<?>[]   TAB_FRAGMENTS   = new Class<?>[TAB_COUNT];
-    private static final int  TAB_TITLE_IDS[] = new int[TAB_COUNT];
+    static final int         TAB_COUNT       = 4;
+    static final Class<?>[]  TAB_FRAGMENTS   = new Class<?>[TAB_COUNT];
+    private static final int TAB_TITLE_IDS[] = new int[TAB_COUNT];
 
     static {
 
@@ -41,8 +39,7 @@ public class MainActivity extends FragmentActivity implements TabListener {
 
     }
 
-    private UiLifecycleHelper uiLifecycleHelper;
-    private ViewPager         viewPager;
+    private ViewPager        viewPager;
 
     private void addTab(ActionBar actionBar, int titleId) {
         actionBar.addTab(actionBar.newTab().setText(getResources().getString(titleId)).setTabListener(this));
@@ -78,20 +75,11 @@ public class MainActivity extends FragmentActivity implements TabListener {
             }
 
         });
-        uiLifecycleHelper = new UiLifecycleHelper(this, new StatusCallback() {
-
-            @Override
-            public void call(Session session, SessionState state, Exception exception) {
-                onSessionStateChange(session, state, exception);
-            }
-
-        });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        uiLifecycleHelper.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -99,19 +87,12 @@ public class MainActivity extends FragmentActivity implements TabListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         initialize();
-        uiLifecycleHelper.onCreate(savedInstanceState);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        uiLifecycleHelper.onDestroy();
     }
 
     @Override
@@ -128,30 +109,7 @@ public class MainActivity extends FragmentActivity implements TabListener {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        uiLifecycleHelper.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        uiLifecycleHelper.onResume();
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        uiLifecycleHelper.onSaveInstanceState(outState);
-    }
-
-    private void onSessionStateChange(Session session, SessionState state, Exception exception) {
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        uiLifecycleHelper.onStop();
+    public void onSessionStateChange(Session session, SessionState state, Exception exception) {
     }
 
     @Override

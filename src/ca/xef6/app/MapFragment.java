@@ -1,46 +1,35 @@
 package ca.xef6.app;
 
-import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.facebook.Session;
-import com.facebook.Session.StatusCallback;
 import com.facebook.SessionState;
-import com.facebook.UiLifecycleHelper;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
+import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
+import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapFragment extends SupportMapFragment {
+public class MapFragment extends ca.xef6.app.ui.MapFragment
+        implements ConnectionCallbacks, OnConnectionFailedListener, LocationListener, OnMyLocationButtonClickListener {
 
-    private UiLifecycleHelper uiLifecycleHelper;
+    private LocationClient locationClient;
+    private GoogleMap      map;
 
-    private void initialize() {
-        uiLifecycleHelper = new UiLifecycleHelper(getActivity(), new StatusCallback() {
-
-            @Override
-            public void call(Session session, SessionState state, Exception exception) {
-                onSessionStateChange(session, state, exception);
-            }
-
-        });
+    @Override
+    public void onConnected(Bundle connectionHint) {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        uiLifecycleHelper.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initialize();
-        uiLifecycleHelper.onCreate(savedInstanceState);
+    public void onConnectionFailed(ConnectionResult result) {
     }
 
     @Override
@@ -54,36 +43,20 @@ public class MapFragment extends SupportMapFragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        uiLifecycleHelper.onDestroy();
+    public void onDisconnected() {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        uiLifecycleHelper.onPause();
+    public void onLocationChanged(Location location) {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        uiLifecycleHelper.onResume();
+    public boolean onMyLocationButtonClick() {
+        return false;
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        uiLifecycleHelper.onSaveInstanceState(outState);
-    }
-
-    private void onSessionStateChange(Session session, SessionState state, Exception exception) {
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        uiLifecycleHelper.onStop();
+    public void onSessionStateChange(Session session, SessionState state, Exception exception) {
     }
 
 }

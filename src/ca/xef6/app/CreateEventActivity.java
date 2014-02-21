@@ -5,36 +5,20 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TimePicker;
+import ca.xef6.app.ui.FragmentActivity;
 import ca.xef6.app.util.DatePickerFragment;
 import ca.xef6.app.util.TimePickerFragment;
 
 import com.facebook.Session;
-import com.facebook.Session.StatusCallback;
 import com.facebook.SessionState;
-import com.facebook.UiLifecycleHelper;
 
 public class CreateEventActivity extends FragmentActivity {
 
     private static final int RESULT_LOAD_IMAGE = 1;
-
-    private static final class Views {
-        EditText name;
-        EditText description;
-        Button   date;
-        Button   time;
-
-    }
-
-    View                      view;
-    Views                     views;
-
-    private UiLifecycleHelper uiLifecycleHelper;
 
     public void createEvent(View view) {
         /*if (TextUtils.isEmpty(name.getText().toString())) {
@@ -70,15 +54,6 @@ public class CreateEventActivity extends FragmentActivity {
 
     private void initialize() {
 
-        uiLifecycleHelper = new UiLifecycleHelper(this, new StatusCallback() {
-
-            @Override
-            public void call(Session session, SessionState state, Exception exception) {
-                onSessionStateChange(session, state, exception);
-            }
-
-        });
-
         setContentView(R.layout.create_event);
         /* name = (EditText) findViewById(R.id.name);
          description = (EditText) findViewById(R.id.description);
@@ -90,7 +65,6 @@ public class CreateEventActivity extends FragmentActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        uiLifecycleHelper.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK
                 && null != data) {
             Uri selectedImage = data.getData();
@@ -114,7 +88,6 @@ public class CreateEventActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initialize();
-        uiLifecycleHelper.onCreate(savedInstanceState);
 
         // Check from the saved Instance
         // eventUri = (savedInstanceState == null) ? null : (Uri) savedInstanceState.getParcelable(ContentProvider.CONTENT_ITEM_TYPE);
@@ -127,38 +100,19 @@ public class CreateEventActivity extends FragmentActivity {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        uiLifecycleHelper.onDestroy();
-    }
-
-    @Override
     protected void onPause() {
         super.onPause();
-        uiLifecycleHelper.onPause();
         //saveState();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        uiLifecycleHelper.onResume();
     }
 
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        uiLifecycleHelper.onSaveInstanceState(outState);
         //saveState();
         //  outState.putParcelable(ContentProvider.CONTENT_ITEM_TYPE, eventUri);
     }
 
-    private void onSessionStateChange(Session session, SessionState state, Exception exception) {
-    }
-
     @Override
-    protected void onStop() {
-        super.onStop();
-        uiLifecycleHelper.onStop();
+    public void onSessionStateChange(Session session, SessionState state, Exception exception) {
     }
 
     private void saveState() {

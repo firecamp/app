@@ -2,38 +2,23 @@ package ca.xef6.app;
 
 import java.util.List;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import ca.xef6.app.ui.ListFragment;
 import ca.xef6.app.util.GraphUserAdapter;
 import ca.xef6.app.util.GraphUserLoader;
 
 import com.facebook.Session;
-import com.facebook.Session.StatusCallback;
 import com.facebook.SessionState;
-import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
 
 public class PeopleFragment extends ListFragment implements LoaderCallbacks<List<GraphUser>> {
 
-    private GraphUserAdapter  adapter;
-    private UiLifecycleHelper uiLifecycleHelper;
-
-    private void initialize() {
-        uiLifecycleHelper = new UiLifecycleHelper(getActivity(), new StatusCallback() {
-
-            @Override
-            public void call(Session session, SessionState state, Exception exception) {
-                onSessionStateChange(session, state, exception);
-            }
-
-        });
-    }
+    private GraphUserAdapter adapter;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -41,19 +26,6 @@ public class PeopleFragment extends ListFragment implements LoaderCallbacks<List
         adapter = new GraphUserAdapter(getActivity());
         setListAdapter(adapter);
         getLoaderManager().initLoader(0, null, this);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        uiLifecycleHelper.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initialize();
-        uiLifecycleHelper.onCreate(savedInstanceState);
     }
 
     @Override
@@ -68,12 +40,6 @@ public class PeopleFragment extends ListFragment implements LoaderCallbacks<List
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        uiLifecycleHelper.onDestroy();
-    }
-
-    @Override
     public void onLoadFinished(Loader<List<GraphUser>> loader, List<GraphUser> data) {
         adapter.setData(data);
     }
@@ -84,30 +50,7 @@ public class PeopleFragment extends ListFragment implements LoaderCallbacks<List
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        uiLifecycleHelper.onPause();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        uiLifecycleHelper.onResume();
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        uiLifecycleHelper.onSaveInstanceState(outState);
-    }
-
-    private void onSessionStateChange(Session session, SessionState state, Exception exception) {
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        uiLifecycleHelper.onStop();
+    public void onSessionStateChange(Session session, SessionState state, Exception exception) {
     }
 
 }
