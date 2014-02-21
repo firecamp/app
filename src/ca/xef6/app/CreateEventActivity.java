@@ -13,9 +13,6 @@ import ca.xef6.app.ui.FragmentActivity;
 import ca.xef6.app.util.DatePickerFragment;
 import ca.xef6.app.util.TimePickerFragment;
 
-import com.facebook.Session;
-import com.facebook.SessionState;
-
 public class CreateEventActivity extends FragmentActivity {
 
     private static final int RESULT_LOAD_IMAGE = 1;
@@ -111,10 +108,6 @@ public class CreateEventActivity extends FragmentActivity {
         //  outState.putParcelable(ContentProvider.CONTENT_ITEM_TYPE, eventUri);
     }
 
-    @Override
-    public void onSessionStateChange(Session session, SessionState state, Exception exception) {
-    }
-
     private void saveState() {
         /* String dataName = name.getText().toString();
          String dataDescription = description.getText().toString();
@@ -146,8 +139,7 @@ public class CreateEventActivity extends FragmentActivity {
         new DatePickerFragment() {
 
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 String text = String.format("%04d-%02d-%02d", year, monthOfYear, dayOfMonth);
                 button.setText(text);
             }

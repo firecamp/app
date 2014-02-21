@@ -11,9 +11,11 @@ import com.facebook.UiLifecycleHelper;
 /**
  * FragmentActivity class which handles Facebook session state changes
  * automatically. Use this instead of
- * {@link android.support.v4.app.FragmentActivity}.
+ * {@link android.support.v4.app.FragmentActivity}. Override
+ * {@link #onSessionStateChange(Session, SessionState, Exception)} to receive
+ * Facebook state updates.
  */
-public abstract class FragmentActivity extends android.support.v4.app.FragmentActivity implements SessionStateChangeListener {
+public class FragmentActivity extends android.support.v4.app.FragmentActivity implements SessionStateChangeListener {
 
     private UiLifecycleHelper uiLifecycleHelper;
 
@@ -59,6 +61,10 @@ public abstract class FragmentActivity extends android.support.v4.app.FragmentAc
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         uiLifecycleHelper.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onSessionStateChange(Session session, SessionState state, Exception exception) {
     }
 
     @Override

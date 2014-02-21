@@ -12,8 +12,6 @@ import ca.xef6.app.ui.ListFragment;
 import ca.xef6.app.util.GraphUserAdapter;
 import ca.xef6.app.util.GraphUserLoader;
 
-import com.facebook.Session;
-import com.facebook.SessionState;
 import com.facebook.model.GraphUser;
 
 public class PeopleFragment extends ListFragment implements LoaderCallbacks<List<GraphUser>> {
@@ -47,10 +45,6 @@ public class PeopleFragment extends ListFragment implements LoaderCallbacks<List
     @Override
     public void onLoaderReset(Loader<List<GraphUser>> loader) {
         adapter.setData(null);
-    }
-
-    @Override
-    public void onSessionStateChange(Session session, SessionState state, Exception exception) {
     }
 
 }

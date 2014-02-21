@@ -14,9 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import ca.xef6.app.ui.FragmentActivity;
 
-import com.facebook.Session;
-import com.facebook.SessionState;
-
 public class MainActivity extends FragmentActivity implements TabListener {
 
     static final int         TAB_COUNT       = 4;
@@ -106,10 +103,6 @@ public class MainActivity extends FragmentActivity implements TabListener {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public void onSessionStateChange(Session session, SessionState state, Exception exception) {
     }
 
     @Override

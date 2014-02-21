@@ -11,8 +11,10 @@ import com.facebook.UiLifecycleHelper;
 /**
  * MapFragment class which handles Facebook session state changes automatically.
  * Use this instead of {@link com.google.android.gms.maps.SupportMapFragment}.
+ * Override {@link #onSessionStateChange(Session, SessionState, Exception)} to
+ * receive Facebook state updates.
  */
-public abstract class MapFragment extends com.google.android.gms.maps.SupportMapFragment implements SessionStateChangeListener {
+public class MapFragment extends com.google.android.gms.maps.SupportMapFragment implements SessionStateChangeListener {
 
     private UiLifecycleHelper uiLifecycleHelper;
 
@@ -58,6 +60,10 @@ public abstract class MapFragment extends com.google.android.gms.maps.SupportMap
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         uiLifecycleHelper.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onSessionStateChange(Session session, SessionState state, Exception exception) {
     }
 
     @Override

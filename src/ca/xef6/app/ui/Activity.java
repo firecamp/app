@@ -10,9 +10,11 @@ import com.facebook.UiLifecycleHelper;
 
 /**
  * Activity class which handles Facebook session state changes automatically.
- * Use this instead of {@link android.app.Activity}.
+ * Use this instead of {@link android.app.Activity}. Override
+ * {@link #onSessionStateChange(Session, SessionState, Exception)} to receive
+ * Facebook state updates.
  */
-public abstract class Activity extends android.app.Activity implements SessionStateChangeListener {
+public class Activity extends android.app.Activity implements SessionStateChangeListener {
 
     private UiLifecycleHelper uiLifecycleHelper;
 
@@ -58,6 +60,10 @@ public abstract class Activity extends android.app.Activity implements SessionSt
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         uiLifecycleHelper.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onSessionStateChange(Session session, SessionState state, Exception exception) {
     }
 
     @Override

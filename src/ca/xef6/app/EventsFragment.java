@@ -14,9 +14,6 @@ import android.view.ViewGroup;
 import ca.xef6.app.ui.ListFragment;
 import ca.xef6.app.util.EventAdapter;
 
-import com.facebook.Session;
-import com.facebook.SessionState;
-
 public class EventsFragment extends ListFragment implements LoaderCallbacks<Cursor> {
 
     private EventAdapter adapter;
@@ -69,10 +66,6 @@ public class EventsFragment extends ListFragment implements LoaderCallbacks<Curs
             return false;
         }
         return true;
-    }
-
-    @Override
-    public void onSessionStateChange(Session session, SessionState state, Exception exception) {
     }
 
 }

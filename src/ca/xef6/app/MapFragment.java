@@ -5,27 +5,55 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import com.facebook.Session;
-import com.facebook.SessionState;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapFragment extends ca.xef6.app.ui.MapFragment
         implements ConnectionCallbacks, OnConnectionFailedListener, LocationListener, OnMyLocationButtonClickListener {
 
-    private LocationClient locationClient;
-    private GoogleMap      map;
+    private static final LocationRequest REQUEST = LocationRequest.create()
+                                                         .setInterval(5000)
+                                                         .setFastestInterval(16)
+                                                         .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+    private LocationClient               locationClient;
+    private GoogleMap                    map;
+
+    private void initialize() {
+        initializeLocationClient();
+        initializeMap();
+        locationClient.connect();
+    }
+
+    private void initializeLocationClient() {
+        if (locationClient == null) {
+            locationClient = new LocationClient(getActivity(),
+                    this, // ConnectionCallbacks
+                    this); // OnConnectionFailedListener
+        }
+    }
+
+    private void initializeMap() {
+        if (map == null) {
+            map = getMap();
+            if (map != null) {
+                map.setMyLocationEnabled(true);
+                map.setOnMyLocationButtonClickListener(this);
+            }
+        }
+    }
 
     @Override
     public void onConnected(Bundle connectionHint) {
+        locationClient.requestLocationUpdates(REQUEST, this /* LocationListener */);
     }
 
     @Override
@@ -35,10 +63,6 @@ public class MapFragment extends ca.xef6.app.ui.MapFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        GoogleMap map = getMap();
-        if (map != null) {
-            map.addMarker(new MarkerOptions().position(new LatLng(45.5, 73.6)).title("My Title"));
-        }
         return view;
     }
 
@@ -52,11 +76,25 @@ public class MapFragment extends ca.xef6.app.ui.MapFragment
 
     @Override
     public boolean onMyLocationButtonClick() {
+        if (locationClient != null && locationClient.isConnected()) {
+            String msg = "Location = " + locationClient.getLastLocation();
+            Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
+        }
         return false;
     }
 
     @Override
-    public void onSessionStateChange(Session session, SessionState state, Exception exception) {
+    public void onPause() {
+        super.onPause();
+        if (locationClient != null) {
+            locationClient.disconnect();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initialize();
     }
 
 }
