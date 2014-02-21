@@ -6,6 +6,7 @@
     <!-- Strings -->
     <!-- action_ - Menu Items -->
     <string name="action_log_out">Log out</string>
+    <string name="action_create">Create</string>
 
     <!-- tab_ - Tab Captions -->
     <string name="tab_map">Map</string>
