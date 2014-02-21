@@ -10,4 +10,9 @@ final class TableColumn {
         this.type = type;
     }
 
+    @Override
+    public String toString() {
+        throw new NullPointerException("Fuck you! Don't call toString on a TableColumn.");
+    }
+
 }

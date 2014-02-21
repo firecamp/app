@@ -16,6 +16,7 @@
     <!-- msg_ - General Info Messages -->
     <string name="msg_no_events">There are no events to display.</string>
     <string name="msg_no_people">There are no people to display.</string>
+    <string name="msg_not_logged_in">You are not logged in.</string>
 
     <!-- Content Description strings, name them cd_<item id> -->
     <string name="cd_splash_image_view">Splash Image</string>
