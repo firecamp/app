@@ -104,13 +104,10 @@ class ProfilePictureDownloadTask extends AsyncTask<String, Void, Bitmap> {
         Bitmap image = Bitmap.createBitmap(mask.getWidth(), mask.getHeight(), Bitmap.Config.ARGB_8888);
 
         Paint paint = new Paint();
-        //paint.setShader(new BitmapShader(mask, TileMode.CLAMP, TileMode.CLAMP));
         paint.setXfermode(new PorterDuffXfermode(Mode.MULTIPLY));
         Canvas c = new Canvas();
         c.setBitmap(image);
-        float left = (image.getWidth() - sourceImage.getWidth()) / 2;
-        float top = (image.getHeight() - sourceImage.getHeight()) / 2;
-        c.drawBitmap(sourceImage, left, top, null);
+        c.drawBitmap(Bitmap.createScaledBitmap(sourceImage, image.getWidth(), image.getHeight(), false), 0, 0, null);
         c.drawBitmap(mask, 0, 0, paint);
 
         imageView.setImageBitmap(image);
