@@ -4,8 +4,13 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff.Mode;
+import android.graphics.PorterDuffXfermode;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -47,7 +52,7 @@ public class ProfileFragment extends Fragment {
             public void onCompleted(GraphUser user, Response response) {
                 if (session == Session.getActiveSession()) {
                     if (user != null) {
-                        new ProfilePictureDownloadTask(profilePictureButton).execute(user.getId());
+                        new ProfilePictureDownloadTask(profilePictureButton, getActivity().getResources()).execute(user.getId());
                         userNameView.setText(user.getName());
                     }
                 }
@@ -64,9 +69,11 @@ public class ProfileFragment extends Fragment {
 class ProfilePictureDownloadTask extends AsyncTask<String, Void, Bitmap> {
 
     private final ImageView imageView;
+    private final Resources resources;
 
-    public ProfilePictureDownloadTask(ImageView imageView) {
+    public ProfilePictureDownloadTask(ImageView imageView, Resources resources) {
         this.imageView = imageView;
+        this.resources = resources;
     }
 
     @Override
@@ -77,7 +84,7 @@ class ProfilePictureDownloadTask extends AsyncTask<String, Void, Bitmap> {
     private Bitmap downloadProfilePicture(String userId) {
         URL url = null;
         try {
-            url = new URL("http://graph.facebook.com/me/picture?type=thumbnail");
+            url = new URL("https://graph.facebook.com/" + userId + "/picture?type=large");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -91,8 +98,22 @@ class ProfilePictureDownloadTask extends AsyncTask<String, Void, Bitmap> {
     }
 
     @Override
-    protected void onPostExecute(Bitmap bitmap) {
-        imageView.setImageBitmap(bitmap);
+    protected void onPostExecute(Bitmap sourceImage) {
+
+        Bitmap mask = BitmapFactory.decodeResource(resources, R.drawable.mask);
+        Bitmap image = Bitmap.createBitmap(mask.getWidth(), mask.getHeight(), Bitmap.Config.ARGB_8888);
+
+        Paint paint = new Paint();
+        //paint.setShader(new BitmapShader(mask, TileMode.CLAMP, TileMode.CLAMP));
+        paint.setXfermode(new PorterDuffXfermode(Mode.MULTIPLY));
+        Canvas c = new Canvas();
+        c.setBitmap(image);
+        float left = (image.getWidth() - sourceImage.getWidth()) / 2;
+        float top = (image.getHeight() - sourceImage.getHeight()) / 2;
+        c.drawBitmap(sourceImage, left, top, null);
+        c.drawBitmap(mask, 0, 0, paint);
+
+        imageView.setImageBitmap(image);
     }
 
 }
