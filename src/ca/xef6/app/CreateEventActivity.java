@@ -98,7 +98,9 @@ public class CreateEventActivity extends FragmentActivity implements ConnectionC
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
             data.imageUrl = cursor.getString(columnIndex);
             cursor.close();
-            views.image.setImageBitmap(BitmapFactory.decodeFile(data.imageUrl));
+            if (data.imageUrl != null) {
+                views.image.setImageBitmap(BitmapFactory.decodeFile(data.imageUrl));
+            }
         }
     }
 
@@ -166,8 +168,7 @@ public class CreateEventActivity extends FragmentActivity implements ConnectionC
         String date = views.date.getText().toString();
         String time = views.time.getText().toString();
         if (name.length() == 0 || description.length() == 0
-                || date.length() == 0 || time.length() == 0
-                || data.imageUrl.length() == 0) {
+                || date.length() == 0 || time.length() == 0) {
             return;
         }
         ContentValues values = new ContentValues();

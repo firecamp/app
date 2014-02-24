@@ -19,8 +19,11 @@ public class EventAdapter extends ResourceCursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
 
-        ((ImageView) view.findViewById(R.id.event_row_image)).setImageBitmap(BitmapFactory.decodeFile(
-                cursor.getString(cursor.getColumnIndexOrThrow(EventsTable.COL_IMAGEURL))));
+        String imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(EventsTable.COL_IMAGEURL));
+
+        if (imageUrl != null) {
+            ((ImageView) view.findViewById(R.id.event_row_image)).setImageBitmap(BitmapFactory.decodeFile(imageUrl));
+        }
 
         ((TextView) view.findViewById(R.id.event_row_name)).setText(
                 cursor.getString(cursor.getColumnIndexOrThrow(EventsTable.COL_NAME)));

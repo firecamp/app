@@ -12,7 +12,7 @@ public class EventsTable { // FIXME: Get rid of the duplication.
     static final TableColumn           COLUMN_AUTHOR      = new TableColumn("author", "text not null");
     static final TableColumn           COLUMN_DATE        = new TableColumn("date", "text not null");
     static final TableColumn           COLUMN_TIME        = new TableColumn("time", "text not null");
-    static final TableColumn           COLUMN_IMAGEURL    = new TableColumn("imageurl", "text not null");
+    static final TableColumn           COLUMN_IMAGEURL    = new TableColumn("imageurl", "text");
     static final TableColumn           COLUMN_LAT         = new TableColumn("lat", "real");
     static final TableColumn           COLUMN_LNG         = new TableColumn("lng", "real");
 
