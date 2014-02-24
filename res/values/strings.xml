@@ -6,7 +6,7 @@
     <!-- Strings -->
     <!-- action_ - Menu Items -->
     <string name="action_log_out">Log out</string>
-    <string name="action_create">Create</string>
+    <string name="action_done">Done</string>
 
     <!-- tab_ - Tab Captions -->
     <string name="tab_map">Map</string>
@@ -21,5 +21,13 @@
 
     <!-- Content Description strings, name them cd_<item id> -->
     <string name="cd_splash_image_view">Splash Image</string>
+    <string name="cd_create_event_image_button">Image associated with this event</string>
+
+    <!-- event creation -->
+    <string name="create_event_activity_title">New Event</string>
+    <string name="create_event_image_button_text">Click to set image</string>
+    <string name="create_event_hint_name">Name</string>
+    <string name="create_event_hint_description">Description</string>
+    <string name="create_event_action">Create</string>
 
 </resources>

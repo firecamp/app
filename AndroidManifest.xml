@@ -32,7 +32,9 @@
             android:value="@string/app_google_maps_key" />
 
         <activity android:name=".MainActivity" />
-        <activity android:name=".CreateEventActivity" />
+        <activity
+            android:name=".CreateEventActivity"
+            android:label="@string/create_event_activity_title" />
         <activity
             android:name=".SplashActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
@@ -49,7 +51,7 @@
 
         <provider
             android:name=".db.ContentProvider"
-            android:authorities="ca.xef6.firecamp.db"
+            android:authorities="ca.xef6.app.db"
             android:exported="false" />
     </application>
 

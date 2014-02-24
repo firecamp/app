@@ -1,84 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="10" >
 
-    <EditText
-        android:id="@+id/name"
+    <ImageButton
+        android:id="@+id/image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Name"
-        android:singleLine="true"
-        android:textSize="30sp" />
-
-    <EditText
-        android:id="@+id/description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/name"
-        android:hint="Description"
-        android:singleLine="true" />
+        android:layout_height="0dip"
+        android:layout_weight="3"
+        android:contentDescription="@string/cd_create_event_image_button"
+        android:onClick="showImagePickerDialog"
+        android:text="@string/create_event_image_button_text" />
 
     <LinearLayout
-        android:id="@+id/ll_3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/description"
+        android:layout_height="8dip"
+        android:layout_weight="7"
         android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/confirm_button"
+        <EditText
+            android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="createEvent"
-            android:text="Create event!" />
-    </LinearLayout>
+            android:hint="@string/create_event_hint_name"
+            android:singleLine="true"
+            android:textSize="30sp" />
 
-    <LinearLayout
-        android:id="@+id/ll_1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ll_3" >
+        <EditText
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/create_event_hint_description" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2" >
+
+            <Button
+                android:id="@+id/date"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="showDatePickerDialog"
+                android:text="Set date" />
+
+            <Button
+                android:id="@+id/time"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="showTimePickerDialog"
+                android:text="Set time" />
+        </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:text="Time of event: " />
-
-        <Button
-            android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:onClick="showDatePickerDialog"
-            android:text="Set date" />
-
-        <Button
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="showTimePickerDialog"
-            android:text="Set time" />
+            android:id="@+id/location"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="location info" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ll_1"
-        android:orientation="vertical" >
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="showImagePickerDialog"
-            android:text="Pick image from gallery" />
-
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

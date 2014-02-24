@@ -5,6 +5,6 @@
         android:id="@+id/action_create"
         android:icon="@android:drawable/ic_menu_add"
         android:showAsAction="ifRoom|withText"
-        android:title="@string/action_create"/>
+        android:title="@string/create_event_action"/>
 
 </menu>

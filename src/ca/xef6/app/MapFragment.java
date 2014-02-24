@@ -1,7 +1,10 @@
 package ca.xef6.app;
 
+import android.database.Cursor;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +20,12 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 
 public class MapFragment extends ca.xef6.app.ui.MapFragment
-        implements ConnectionCallbacks, OnConnectionFailedListener, LocationListener, OnMyLocationButtonClickListener {
+        implements ConnectionCallbacks, OnConnectionFailedListener, LoaderCallbacks<Cursor>, LocationListener, OnMyLocationButtonClickListener {
 
-    private static final LocationRequest REQUEST = LocationRequest.create()
-                                                         .setInterval(5000)
-                                                         .setFastestInterval(16)
-                                                         .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    private static final LocationRequest LOCATION_REQUEST = LocationRequest.create()
+                                                                  .setInterval(5000)
+                                                                  .setFastestInterval(16)
+                                                                  .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
     private LocationClient               locationClient;
     private GoogleMap                    map;
@@ -35,9 +38,7 @@ public class MapFragment extends ca.xef6.app.ui.MapFragment
 
     private void initializeLocationClient() {
         if (locationClient == null) {
-            locationClient = new LocationClient(getActivity(),
-                    this, // ConnectionCallbacks
-                    this); // OnConnectionFailedListener
+            locationClient = new LocationClient(getActivity(), this, this);
         }
     }
 
@@ -53,11 +54,16 @@ public class MapFragment extends ca.xef6.app.ui.MapFragment
 
     @Override
     public void onConnected(Bundle connectionHint) {
-        locationClient.requestLocationUpdates(REQUEST, this /* LocationListener */);
+        locationClient.requestLocationUpdates(LOCATION_REQUEST, this);
     }
 
     @Override
     public void onConnectionFailed(ConnectionResult result) {
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) { // TODO
+        return null;
     }
 
     @Override
@@ -68,6 +74,14 @@ public class MapFragment extends ca.xef6.app.ui.MapFragment
 
     @Override
     public void onDisconnected() {
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) { // TODO
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) { // TODO
     }
 
     @Override
