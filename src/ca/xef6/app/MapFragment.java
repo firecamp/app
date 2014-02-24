@@ -4,11 +4,14 @@ import android.database.Cursor;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import ca.xef6.app.db.ContentProvider;
+import ca.xef6.app.db.EventsTable;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
@@ -18,6 +21,8 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapFragment extends ca.xef6.app.ui.MapFragment
         implements ConnectionCallbacks, OnConnectionFailedListener, LoaderCallbacks<Cursor>, LocationListener, OnMyLocationButtonClickListener {
@@ -53,6 +58,12 @@ public class MapFragment extends ca.xef6.app.ui.MapFragment
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getLoaderManager().initLoader(0, null, this);
+    }
+
+    @Override
     public void onConnected(Bundle connectionHint) {
         locationClient.requestLocationUpdates(LOCATION_REQUEST, this);
     }
@@ -62,8 +73,8 @@ public class MapFragment extends ca.xef6.app.ui.MapFragment
     }
 
     @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) { // TODO
-        return null;
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(getActivity(), ContentProvider.CONTENT_URI, EventsTable.ALL_COLUMNS, null, null, null);
     }
 
     @Override
@@ -82,6 +93,16 @@ public class MapFragment extends ca.xef6.app.ui.MapFragment
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) { // TODO
+        if (data.moveToFirst()) {
+            do {
+                final float latitude = data.getFloat(data.getColumnIndexOrThrow(EventsTable.COL_LAT));
+                final float longitude = data.getFloat(data.getColumnIndexOrThrow(EventsTable.COL_LNG));
+                final String title = data.getString(data.getColumnIndexOrThrow(EventsTable.COL_NAME));
+                if (map != null) {
+                    map.addMarker(new MarkerOptions().title(title).position(new LatLng(latitude, longitude)));
+                }
+            } while (data.moveToNext());
+        }
     }
 
     @Override
