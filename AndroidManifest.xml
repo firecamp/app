@@ -36,6 +36,9 @@
             android:name=".CreateEventActivity"
             android:label="@string/create_event_activity_title" />
         <activity
+            android:name="ca.xef6.widget.LocationPickerActivity"
+            android:label="@string/msg_pick_location" />
+        <activity
             android:name=".SplashActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
             <intent-filter>

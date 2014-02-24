@@ -6,7 +6,6 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -17,23 +16,18 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import ca.xef6.app.db.ContentProvider;
 import ca.xef6.app.db.EventsTable;
 import ca.xef6.app.ui.FragmentActivity;
 import ca.xef6.app.util.DatePickerFragment;
 import ca.xef6.app.util.TimePickerFragment;
+import ca.xef6.widget.LocationPickerActivity;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
-import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
-import com.google.android.gms.location.LocationClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.maps.model.LatLng;
 
 @SuppressLint("NewApi")
-public class CreateEventActivity extends FragmentActivity implements ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
+public class CreateEventActivity extends FragmentActivity {
 
     private static final class Data {
         public int    type;
@@ -48,20 +42,15 @@ public class CreateEventActivity extends FragmentActivity implements ConnectionC
         public EditText    description;
         public Button      date;
         public Button      time;
-        public TextView    location;
+        public Button      location;
     }
 
-    private static final LocationRequest LOCATION_REQUEST      = LocationRequest.create()
-                                                                       .setInterval(5000)
-                                                                       .setFastestInterval(16)
-                                                                       .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    private static final int RESULT_IMAGE_SELECTED    = 1;
+    private static final int RESULT_LOCATION_SELECTED = 2;
 
-    private static final int             RESULT_IMAGE_SELECTED = 1;
-
-    private final Data                   data                  = new Data();
-    private Uri                          eventUri;
-    private LocationClient               locationClient;
-    private final Views                  views                 = new Views();
+    private final Data       data                     = new Data();
+    private Uri              eventUri;
+    private final Views      views                    = new Views();
 
     private void fillData(Uri uri) {
         String[] projection = EventsTable.ALL_COLUMNS;
@@ -84,22 +73,31 @@ public class CreateEventActivity extends FragmentActivity implements ConnectionC
         views.description = (EditText) findViewById(R.id.description);
         views.date = (Button) findViewById(R.id.date);
         views.time = (Button) findViewById(R.id.time);
-        views.location = (TextView) findViewById(R.id.location);
+        views.location = (Button) findViewById(R.id.location);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-        if (requestCode == RESULT_IMAGE_SELECTED && resultCode == RESULT_OK && null != intent) {
-            Uri selectedImage = intent.getData();
-            final String[] filePathColumn = { MediaStore.Images.Media.DATA };
-            Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-            cursor.moveToFirst();
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            data.imageUrl = cursor.getString(columnIndex);
-            cursor.close();
-            if (data.imageUrl != null) {
-                views.image.setImageBitmap(BitmapFactory.decodeFile(data.imageUrl));
+        if (requestCode == RESULT_IMAGE_SELECTED) {
+            if (resultCode == RESULT_OK && null != intent) {
+                Uri selectedImage = intent.getData();
+                final String[] filePathColumn = { MediaStore.Images.Media.DATA };
+                Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                cursor.moveToFirst();
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                data.imageUrl = cursor.getString(columnIndex);
+                cursor.close();
+                if (data.imageUrl != null) {
+                    views.image.setImageBitmap(BitmapFactory.decodeFile(data.imageUrl));
+                }
+            }
+        } else if (requestCode == RESULT_LOCATION_SELECTED) {
+            if (resultCode == RESULT_OK && null != intent) {
+                LatLng latLng = (LatLng) intent.getParcelableExtra("selectedLocation");
+                data.latitude = latLng.latitude;
+                data.longitude = latLng.longitude;
+                views.location.setText("Location: " + latLng.toString());
             }
         }
     }
@@ -137,23 +135,7 @@ public class CreateEventActivity extends FragmentActivity implements ConnectionC
     @Override
     public void onPause() {
         super.onPause();
-        if (locationClient != null) {
-            locationClient.disconnect();
-        }
         saveState();
-    }
-
-    private void initializeLocationClient() {
-        if (locationClient == null) {
-            locationClient = new LocationClient(this, this, this);
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        initializeLocationClient();
-        locationClient.connect();
     }
 
     protected void onSaveInstanceState(Bundle outState) {
@@ -207,6 +189,10 @@ public class CreateEventActivity extends FragmentActivity implements ConnectionC
         startActivityForResult(i, RESULT_IMAGE_SELECTED);
     }
 
+    public void showLocationPicker(View view) {
+        startActivityForResult(new Intent(this, LocationPickerActivity.class), RESULT_LOCATION_SELECTED);
+    }
+
     public void showTimePickerDialog(View view) {
         final Button button = (Button) view;
         new TimePickerFragment() {
@@ -218,28 +204,6 @@ public class CreateEventActivity extends FragmentActivity implements ConnectionC
             }
 
         }.show(getSupportFragmentManager(), "timePicker");
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        if (views.location != null && locationClient != null && locationClient.isConnected()) {
-            views.location.setText(location.toString());
-            data.latitude = location.getLatitude();
-            data.longitude = location.getLongitude();
-        }
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult result) {
-    }
-
-    @Override
-    public void onConnected(Bundle connectionHint) {
-        locationClient.requestLocationUpdates(LOCATION_REQUEST, this);
-    }
-
-    @Override
-    public void onDisconnected() {
     }
 
 }

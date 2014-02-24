@@ -7,6 +7,7 @@
     <!-- action_ - Menu Items -->
     <string name="action_log_out">Log out</string>
     <string name="action_done">Done</string>
+    <string name="action_cancel">Cancel</string>
 
     <!-- tab_ - Tab Captions -->
     <string name="tab_map">Map</string>
@@ -18,6 +19,7 @@
     <string name="msg_no_events">There are no events to display.</string>
     <string name="msg_no_people">There are no people to display.</string>
     <string name="msg_not_logged_in">You are not logged in.</string>
+    <string name="msg_pick_location">Pick a location</string>
 
     <!-- Content Description strings, name them cd_<item id> -->
     <string name="cd_splash_image_view">Splash Image</string>
