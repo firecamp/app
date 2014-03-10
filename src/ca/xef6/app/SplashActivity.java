@@ -14,44 +14,49 @@ import com.facebook.SessionState;
 
 public class SplashActivity extends Activity {
 
-    private static final int MAIN_ACTIVITY_START_DELAY = 1500;
+	private static final int MAIN_ACTIVITY_START_DELAY = 1500;
 
-    private LinearLayout     loginLayout;
-    private ImageView        splashImageView;
-    private LinearLayout     splashLayout;
+	private LinearLayout loginLayout;
+	private ImageView splashImageView;
+	private LinearLayout splashLayout;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash);
-        loginLayout = (LinearLayout) findViewById(R.id.login_layout);
-        splashImageView = (ImageView) findViewById(R.id.splash_image_view);
-        splashLayout = (LinearLayout) findViewById(R.id.splash_layout);
-    }
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.splash);
+		loginLayout = (LinearLayout) findViewById(R.id.login_layout);
+		splashImageView = (ImageView) findViewById(R.id.splash_image_view);
+		splashLayout = (LinearLayout) findViewById(R.id.splash_layout);
+		Session session = Session.getActiveSession();
+		if (session != null && session.isOpened()) {
+			onSessionStateChange(session, session.getState(), null);
+		}
+	}
 
-    @Override
-    public void onSessionStateChange(Session session, SessionState state, Exception exception) {
-        if (state.isOpened()) {
-            Log.i("SplashActivity", "onSessionStateChange opened");
-            loginLayout.setVisibility(View.GONE);
-            splashLayout.setVisibility(View.VISIBLE);
-            startMainActivity();
-        } else {
-            Log.i("SplashActivity", "onSessionStateChange closed");
-            loginLayout.setVisibility(View.VISIBLE);
-            splashLayout.setVisibility(View.GONE);
-        }
-    }
+	@Override
+	public void onSessionStateChange(Session session, SessionState state, Exception exception) {
+		if (state.isOpened()) {
+			Log.i("SplashActivity", "onSessionStateChange opened");
+			loginLayout.setVisibility(View.GONE);
+			splashLayout.setVisibility(View.VISIBLE);
+			startMainActivity();
+		} else {
+			Log.i("SplashActivity", "onSessionStateChange closed");
+			loginLayout.setVisibility(View.VISIBLE);
+			splashLayout.setVisibility(View.GONE);
+		}
+	}
 
-    private void startMainActivity() {
-        new Handler().postDelayed(new Runnable() {
+	private void startMainActivity() {
+		new Handler().postDelayed(new Runnable() {
 
-            @Override
-            public void run() {
-                startActivity(new Intent(SplashActivity.this, MainActivity.class));
-            }
+			@Override
+			public void run() {
+				startActivity(new Intent(SplashActivity.this, MainActivity.class));
+				finish();
+			}
 
-        }, MAIN_ACTIVITY_START_DELAY);
-    }
+		}, MAIN_ACTIVITY_START_DELAY);
+	}
 
 }
