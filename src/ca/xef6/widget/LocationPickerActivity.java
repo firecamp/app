@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -157,6 +158,7 @@ public class LocationPickerActivity extends FragmentActivity
     @Override
     public void onMapClick(LatLng point) {
         selectedLocation = new LatLng(point.latitude, point.longitude);
+        Log.w("onMapClick", selectedLocation.toString());
         final MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(point);
         markerOptions.title("Selected Location");

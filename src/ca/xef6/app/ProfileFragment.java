@@ -51,7 +51,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onCompleted(GraphUser user, Response response) {
                 if (session == Session.getActiveSession()) {
-                    if (user != null) {
+                    if (user != null && profilePictureButton != null && userNameView != null) {
                         new ProfilePictureDownloadTask(profilePictureButton, getActivity().getResources()).execute(user.getId());
                         userNameView.setText(user.getName());
                     }

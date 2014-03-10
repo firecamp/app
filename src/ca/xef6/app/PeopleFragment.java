@@ -8,6 +8,7 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import ca.xef6.app.ui.ListFragment;
 import ca.xef6.app.util.GraphUserAdapter;
 import ca.xef6.app.util.GraphUserLoader;
@@ -46,5 +47,10 @@ public class PeopleFragment extends ListFragment implements LoaderCallbacks<List
     public void onLoaderReset(Loader<List<GraphUser>> loader) {
         adapter.setData(null);
     }
+
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		
+	}
 
 }

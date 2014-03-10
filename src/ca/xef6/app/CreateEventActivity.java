@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TimePicker;
+import android.widget.Toast;
 import ca.xef6.app.db.ContentProvider;
 import ca.xef6.app.db.EventsTable;
 import ca.xef6.app.ui.FragmentActivity;
@@ -44,6 +46,9 @@ public class CreateEventActivity extends FragmentActivity {
         public Button      time;
         public Button      location;
     }
+    
+    boolean dateSelected;
+    boolean timeSelected;
 
     private static final int RESULT_IMAGE_SELECTED    = 1;
     private static final int RESULT_LOCATION_SELECTED = 2;
@@ -92,7 +97,8 @@ public class CreateEventActivity extends FragmentActivity {
                     views.image.setImageBitmap(BitmapFactory.decodeFile(data.imageUrl));
                 }
             }
-        } else if (requestCode == RESULT_LOCATION_SELECTED) {
+        }
+        if (requestCode == RESULT_LOCATION_SELECTED) {
             if (resultCode == RESULT_OK && null != intent) {
                 LatLng latLng = (LatLng) intent.getParcelableExtra("selectedLocation");
                 data.latitude = latLng.latitude;
@@ -111,9 +117,7 @@ public class CreateEventActivity extends FragmentActivity {
         customActionBarView.findViewById(R.id.actionbar_done).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(views.name.getText().toString())) {
-                    // makeToast();
-                } else {
+                if (saveState()){
                     setResult(RESULT_OK);
                     finish();
                 }
@@ -135,23 +139,24 @@ public class CreateEventActivity extends FragmentActivity {
     @Override
     public void onPause() {
         super.onPause();
-        saveState();
+        //saveState();
     }
 
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        saveState();
+        //saveState();
         outState.putParcelable(ContentProvider.CONTENT_ITEM_TYPE, eventUri);
     }
 
-    private void saveState() {
+    private boolean saveState() {
         String name = views.name.getText().toString();
         String description = views.description.getText().toString();
         String date = views.date.getText().toString();
         String time = views.time.getText().toString();
         if (name.length() == 0 || description.length() == 0
-                || date.length() == 0 || time.length() == 0) {
-            return;
+                || date.length() == 0 || time.length() == 0 || !timeSelected || !dateSelected) {
+        	Toast.makeText(this, "Please fill in all the fields.", Toast.LENGTH_LONG).show();
+            return false;
         }
         ContentValues values = new ContentValues();
         values.put(EventsTable.COL_NAME, name);
@@ -164,10 +169,12 @@ public class CreateEventActivity extends FragmentActivity {
         values.put(EventsTable.COL_LAT, data.latitude);
         values.put(EventsTable.COL_LNG, data.longitude);
         if (eventUri == null) {
-            eventUri = getContentResolver().insert(ContentProvider.CONTENT_URI, values);
+           eventUri = getContentResolver().insert(ContentProvider.CONTENT_URI, values);
         } else {
-            getContentResolver().update(eventUri, values, null, null);
+        	Log.w("CreateEventActivity", eventUri.toString());
+         getContentResolver().update(eventUri, values, null, null);
         }
+        return true;
     }
 
     public void showDatePickerDialog(View view) {
@@ -178,6 +185,7 @@ public class CreateEventActivity extends FragmentActivity {
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 String text = String.format("%04d-%02d-%02d", year, monthOfYear, dayOfMonth);
                 button.setText(text);
+                dateSelected = true;
             }
 
         }.show(getSupportFragmentManager(), "datePicker");
@@ -201,6 +209,7 @@ public class CreateEventActivity extends FragmentActivity {
             public void onTimeSet(TimePicker tp, int hourOfDay, int minute) {
                 String text = String.format("%02d:%02d", hourOfDay, minute);
                 button.setText(text);
+                timeSelected = true;
             }
 
         }.show(getSupportFragmentManager(), "timePicker");
