@@ -2,6 +2,7 @@ package ca.xef6.app;
 
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
@@ -17,40 +18,41 @@ import com.facebook.model.GraphUser;
 
 public class PeopleFragment extends ListFragment implements LoaderCallbacks<List<GraphUser>> {
 
-    private GraphUserAdapter adapter;
+	private GraphUserAdapter adapter;
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        adapter = new GraphUserAdapter(getActivity());
-        setListAdapter(adapter);
-        getLoaderManager().initLoader(0, null, this);
-    }
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		adapter = new GraphUserAdapter(getActivity());
+		setListAdapter(adapter);
+		getLoaderManager().initLoader(0, null, this);
+	}
 
-    @Override
-    public Loader<List<GraphUser>> onCreateLoader(int id, Bundle args) {
-        return new GraphUserLoader(getActivity());
-    }
+	@Override
+	public Loader<List<GraphUser>> onCreateLoader(int id, Bundle args) {
+		return new GraphUserLoader(getActivity());
+	}
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.people, container, false);
-        return view;
-    }
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View view = inflater.inflate(R.layout.people, container, false);
+		return view;
+	}
 
-    @Override
-    public void onLoadFinished(Loader<List<GraphUser>> loader, List<GraphUser> data) {
-        adapter.setData(data);
-    }
+	@Override
+	public void onLoadFinished(Loader<List<GraphUser>> loader, List<GraphUser> data) {
+		adapter.setData(data);
+	}
 
-    @Override
-    public void onLoaderReset(Loader<List<GraphUser>> loader) {
-        adapter.setData(null);
-    }
+	@Override
+	public void onLoaderReset(Loader<List<GraphUser>> loader) {
+		adapter.setData(null);
+	}
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		
+		Intent intent = new Intent(getActivity(), ProfileActivity.class);
+		startActivity(intent);
 	}
 
 }
