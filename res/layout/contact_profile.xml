@@ -17,15 +17,15 @@
         <ImageButton
             android:id="@+id/profile_background_Button"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_height="200dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:background="@android:color/transparent"
             android:scaleType="centerCrop"
             android:src="@drawable/profile_user_wallpaper" />
+        <!--  
 
-        <!--
-			ImageView
+			<ImageView
             android:id="@+id/profile_Pic_Frame"
             android:layout_width="120dp"
             android:layout_height="120dp"
@@ -34,10 +34,11 @@
             android:layout_marginLeft="15dp"
             android:layout_marginBottom="37dp"
             android:background="@drawable/roundedbutton"
-            android:scaleType="centerCrop"
-        -->
+            android:scaleType="centerCrop"></ImageView>
 
+-->
         <RelativeLayout
+            android:id="@+id/relativeLayout1"
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_alignParentBottom="true"
@@ -95,29 +96,31 @@
                         android:background="@android:color/transparent"
                         android:src="@drawable/common_signin_btn_icon_normal_dark" />
                 </RelativeLayout>
->
+
+
             </LinearLayout>
         </RelativeLayout>
-
-        <ImageButton
-            android:id="@+id/profile_picture_button"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="16dp"
-            android:background="@android:color/transparent" />
 
         <TextView
             android:id="@+id/user_name_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:layout_alignBottom="@+id/profile_background_Button"
             android:layout_toRightOf="@+id/profile_picture_button"
             android:text="Firecamp Habibi"
             android:textColor="#ffffff"
             android:textSize="20dp" />
 
+        <ImageButton
+            android:id="@+id/profile_picture_button"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_above="@+id/relativeLayout1"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="2dp"
+            android:background="@android:color/transparent" />
     </RelativeLayout>
 
     <LinearLayout

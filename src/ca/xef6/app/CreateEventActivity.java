@@ -95,6 +95,8 @@ public class CreateEventActivity extends FragmentActivity {
                 cursor.close();
                 if (data.imageUrl != null) {
                     views.image.setImageBitmap(BitmapFactory.decodeFile(data.imageUrl));
+                    views.image.setImageResource(0);
+                    views.image.setBackground(null);
                 }
             }
         }
