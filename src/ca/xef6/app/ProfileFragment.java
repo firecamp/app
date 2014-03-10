@@ -56,7 +56,7 @@ public class ProfileFragment extends Fragment {
                         userNameView.setText(user.getName());
                     }
                 }
-                if (response.getError() != null) {
+                if (response != null && response.getError() != null) {
                     //handleError(response.getError());
                 }
             }
