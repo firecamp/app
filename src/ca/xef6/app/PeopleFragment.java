@@ -6,19 +6,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 import ca.xef6.app.ui.ListFragment;
 import ca.xef6.app.util.GraphUserAdapter;
 import ca.xef6.app.util.GraphUserLoader;
+import ca.xef6.app.util.GraphUserParcelable;
 
 import com.facebook.model.GraphUser;
 
 public class PeopleFragment extends ListFragment implements LoaderCallbacks<List<GraphUser>> {
 
 	private GraphUserAdapter adapter;
+	private GraphUserLoader loader;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -30,7 +34,10 @@ public class PeopleFragment extends ListFragment implements LoaderCallbacks<List
 
 	@Override
 	public Loader<List<GraphUser>> onCreateLoader(int id, Bundle args) {
-		return new GraphUserLoader(getActivity());
+		if (loader == null) {
+			loader = new GraphUserLoader(getActivity());
+		}
+		return loader;
 	}
 
 	@Override
@@ -51,8 +58,22 @@ public class PeopleFragment extends ListFragment implements LoaderCallbacks<List
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		Intent intent = new Intent(getActivity(), ProfileActivity.class);
-		startActivity(intent);
+		boolean ok = false;
+		Log.i("PeopleFragment", "onListItemClick, id = " + id);
+		if (loader != null) {
+			GraphUser user = loader.getUser((int) id);
+			if (user != null) {
+				Log.i("PeopleFragment", "user id = " + user.getId());
+				Intent intent = new Intent(getActivity(), ProfileActivity.class);
+				ok = true;
+				GraphUserParcelable gup = new GraphUserParcelable(user);
+				intent.putExtra("user", gup);
+				startActivity(intent);
+			}
+		}
+		if (!ok) {
+			Toast.makeText(getActivity(), "Contact the developer if you see this!", Toast.LENGTH_SHORT).show();
+		}
 	}
 
 }
