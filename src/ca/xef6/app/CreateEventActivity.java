@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView.ScaleType;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import ca.xef6.app.db.ContentProvider;
@@ -78,7 +79,6 @@ public class CreateEventActivity extends FragmentActivity {
         views.description = (EditText) findViewById(R.id.description);
         views.date = (Button) findViewById(R.id.date);
         views.time = (Button) findViewById(R.id.time);
-        views.location = (Button) findViewById(R.id.location);
     }
 
     @Override
@@ -96,6 +96,7 @@ public class CreateEventActivity extends FragmentActivity {
                 if (data.imageUrl != null) {
                     views.image.setImageBitmap(BitmapFactory.decodeFile(data.imageUrl));
                     views.image.setImageResource(0);
+                    views.image.setScaleType(ScaleType.CENTER_CROP);
                     views.image.setBackground(null);
                 }
             }

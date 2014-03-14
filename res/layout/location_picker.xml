@@ -4,18 +4,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="100" >
+    <TextView
+        android:id="@+id/details_text_view"
+        android:layout_width="match_parent"
+        android:background="@android:color/transparent"
+        android:layout_height="0dip"
+        android:layout_weight="15" />
 
     <fragment
         android:id="@+id/map_fragment"
         android:name="ca.xef6.app.ui.MapFragment"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="80" />
+        android:layout_weight="85" />
 
-    <TextView
-        android:id="@+id/details_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="20" />
+    
 
 </LinearLayout>

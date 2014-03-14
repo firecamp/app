@@ -23,8 +23,7 @@
             android:background="@android:color/transparent"
             android:scaleType="centerCrop"
             android:src="@drawable/profile_user_wallpaper" />
-        <!--  
-
+        
 			<ImageView
             android:id="@+id/profile_Pic_Frame"
             android:layout_width="120dp"
@@ -35,8 +34,7 @@
             android:layout_marginBottom="37dp"
             android:background="@drawable/roundedbutton"
             android:scaleType="centerCrop"></ImageView>
-
--->
+			
         <RelativeLayout
             android:id="@+id/relativeLayout1"
             android:layout_width="match_parent"
@@ -118,9 +116,10 @@
             android:layout_height="120dp"
             android:layout_above="@+id/relativeLayout1"
             android:layout_alignParentLeft="true"
+            android:layout_marginBottom="14dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginBottom="2dp"
             android:background="@android:color/transparent" />
+
     </RelativeLayout>
 
     <LinearLayout
