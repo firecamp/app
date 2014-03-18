@@ -64,13 +64,26 @@
                 android:onClick="showTimePickerDialog"
                 android:text="Set time" />
         </LinearLayout>
+        <LinearLayout 
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+            <ImageView 
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/pin"/>
+            <TextView 
+                android:layout_marginTop="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@+id/event_row_location"/>
+            
+        </LinearLayout>
 
         <fragment
             android:id="@+id/map_fragment"
             android:name="ca.xef6.app.ui.MapFragment"
             android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="85" />
+            android:layout_height="match_parent" />
     </LinearLayout>
 
 </LinearLayout>

@@ -25,13 +25,18 @@
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/bottom_stroke"
                 android:orientation="vertical" >
 
                 <TextView
                     android:id="@+id/event_row_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     android:text="Event Title Here"
@@ -121,9 +126,10 @@
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
-                        android:background="@android:color/transparent"
+                        android:background="@drawable/right_stroke"
                         android:scaleType="centerInside"
                         android:src="@drawable/ic_like" />
 
