@@ -24,8 +24,6 @@
             android:scaleType="centerCrop"
             android:src="@drawable/profile_user_wallpaper" />
 
-
-
         <RelativeLayout
             android:id="@+id/relativeLayout1"
             android:layout_width="match_parent"
@@ -131,74 +129,19 @@
             android:layout_marginTop="85dp"
             android:text="Mutual friends" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout1"
+        <HorizontalScrollView
+            android:id="@+id/mutual_friends_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_marginBottom="5dp"
-            android:orientation="horizontal"
-            android:weightSum="4" >
+            android:orientation="horizontal" >
 
-            <RelativeLayout
-                android:layout_width="0dp"
+            <LinearLayout
+                android:id="@+id/mutual_friends_layout"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1" >
-
-                <ImageView
-                    android:id="@+id/friend1"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:background="@drawable/roundedbutton"
-                    android:scaleType="centerCrop" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" >
-
-                <ImageView
-                    android:id="@+id/friend2"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:background="@drawable/roundedbutton"
-                    android:scaleType="centerCrop" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" >
-
-                <ImageView
-                    android:id="@+id/friend3"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:background="@drawable/roundedbutton"
-                    android:scaleType="centerCrop" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" >
-
-                <ImageView
-                    android:id="@+id/friend4"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:background="@drawable/roundedbutton"
-                    android:scaleType="centerCrop" />
-            </RelativeLayout>
-        </LinearLayout>
+                android:orientation="horizontal" />
+        </HorizontalScrollView>
     </LinearLayout>
 
 </LinearLayout>
