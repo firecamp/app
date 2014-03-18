@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="#4a68a1"
+    android:background="@android:color/transparent"
     android:layout_height="wrap_content" >
 
     <LinearLayout
@@ -10,6 +10,7 @@
         android:background="@drawable/event_box"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginRight="8dp"
         android:orientation="vertical" >
 
@@ -34,14 +35,15 @@
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     android:text="Event Title Here"
-                    android:textSize="20sp" />
+                    android:textSize="25sp" />
                 
             </RelativeLayout>
 
                 <TextView
                     android:id="@+id/event_row_author"
                     android:textSize="20sp"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginLeft="2dp"
                     android:text="Firecamp Habibi"
                     android:layout_width="wrap_content"
@@ -50,6 +52,7 @@
                     android:id="@+id/event_row_description"
                     android:layout_width="match_parent"
                     android:layout_marginLeft="12dp"
+                    android:textSize="18sp"
                     android:layout_height="wrap_content"
                     android:text="description of event" />
             
@@ -63,7 +66,6 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:src="@drawable/time" />
-                
 
                 <TextView
                     android:id="@+id/event_row_date"
@@ -82,7 +84,6 @@
                     android:layout_height="25dp"
                     android:layout_marginLeft="15dp"
                     android:src="@drawable/pin"/>
-
 
 
                 <TextView
@@ -142,10 +143,10 @@
 
     <ImageButton
         android:id="@+id/post_profile_Button1"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginTop="1dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="3dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:background="@drawable/rounded_corner"
