@@ -2,20 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="70dp"
+    android:weightSum="6"
     android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent">
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp">
 
         <com.facebook.widget.ProfilePictureView
             android:id="@id/profile_picture_button"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginBottom="2dp"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:layout_marginTop="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
             android:scaleType="centerInside"
             android:src="@drawable/profilepic" />
     </LinearLayout>
@@ -23,11 +26,14 @@
 
 
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="5"
             android:layout_height="match_parent"
             android:orientation="horizontal" >
 
             <TextView
+                android:textColor="#6E6E6E"
+                android:textAllCaps="true"
                 android:id="@+id/id1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

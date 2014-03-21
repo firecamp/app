@@ -11,7 +11,6 @@
         android:layout_height="0dp"
         android:layout_weight="5" >
         
-
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -47,94 +46,99 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_alignParentBottom="true"
-            android:background="@android:color/transparent"
             android:layout_alignParentLeft="true"
             android:layout_marginBottom="37dp"
-            android:layout_marginLeft="15dp" />
+            android:layout_marginLeft="15dp"
+            android:background="@android:color/transparent" />
 
         <RelativeLayout
+            android:id="@+id/relativeLayout1"
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true" >
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:weightSum="3" >
 
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" >
-                </RelativeLayout>
+                    <TextView
+                        android:id="@+id/whatsup"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:ems="10"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:hint="Founder at FireCamp. Master Ninja and Superhero."
+                        android:textStyle="italic"
+                        android:inputType="textMultiLine"
+                        android:textSize="15dp" />
 
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" >
-                </RelativeLayout>
 
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" >
-                </RelativeLayout>
->
-            </LinearLayout>
         </RelativeLayout>
 
         <TextView
             android:id="@+id/user_name_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/profile_picture_button"
-            android:layout_marginBottom="40dp"
-            android:layout_toRightOf="@id/profile_picture_button"
+            android:layout_marginLeft="5dp"
+            android:layout_alignBottom="@+id/profile_background_Button"
+            android:layout_toRightOf="@+id/profile_picture_button"
             android:text="Firecamp Habibi"
             android:textColor="#ffffff"
             android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_alignBaseline="@+id/textView1"
+            android:layout_alignBottom="@+id/textView1"
+            android:layout_toRightOf="@+id/textView1"
+            android:text="Following 54"
+            android:textColor="#776da8"
+            android:layout_marginTop="15dp"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/user_name_view"
+            android:layout_below="@+id/profile_background_Button"
+            android:layout_marginTop="15dp"
+            android:text="293 Followers"
+            android:textColor="#776da8"
+            android:textSize="11sp" />
+
     </RelativeLayout>
+
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="5" 
         android:orientation="vertical">
-        
-        <LinearLayout 
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            >
-            <EditText
-            android:id="@+id/whatsup"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="6dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:background="@drawable/rectangularbox"
-            android:hint="what&apos;s up?"
-            android:inputType="textMultiLine"
-            android:textSize="20dp" />
-        </LinearLayout>
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_marginTop="95dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginBottom="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Favorites" />
+            android:layout_above="@+id/linearLayout1"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="14dp"
+            android:text="Favorites"
+            android:textColor="#776da8" />
 
         <LinearLayout
             android:id="@+id/linearLayout1"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:layout_marginBottom="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="12dp"
             android:orientation="horizontal"
             android:weightSum="4" >
 
@@ -199,6 +203,6 @@
             </RelativeLayout>
         </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>
