@@ -32,4 +32,8 @@
     <string name="create_event_hint_description">Description</string>
     <string name="create_event_action">Create</string>
 
+    <!-- address suggestion -->
+    <string name="addrsugg_title">Select an address</string>
+    <string name="addrsugg_message">We found these places near your selected location:</string>
+
 </resources>
