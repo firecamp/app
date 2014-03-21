@@ -16,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -49,6 +50,39 @@ public class ReverseGeocoder {
 	    list = parseJsonToList(json);
 	}
 	return list;
+    }
+
+    private static class DlTask extends AsyncTask<String, Void, List<String>> {
+
+	private final Callback callback;
+	private final LatLng   position;
+	private final boolean  sensor;
+
+	public DlTask(LatLng position, boolean sensor, Callback callback) {
+	    this.position = position;
+	    this.sensor = sensor;
+	    this.callback = callback;
+	}
+
+	@Override
+	protected List<String> doInBackground(String... params) {
+	    List<String> data = getAddressSuggestions(position, sensor);
+	    return data;
+	}
+
+	@Override
+	protected void onPostExecute(List<String> result) {
+	    if (callback != null) {
+		callback.onAddressSuggestionsLoaded(result);
+	    }
+	}
+
+    }
+
+    public static void getAddressSuggestionsAsync(LatLng position,
+						  boolean sensor,
+						  Callback callback) {
+	new DlTask(position, sensor, callback).execute();
     }
 
     private static String buildUrl(LatLng position, boolean sensor) {

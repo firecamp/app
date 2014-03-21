@@ -19,6 +19,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView.ScaleType;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import ca.xef6.app.db.ContentProvider;
@@ -37,19 +38,21 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 @SuppressLint("NewApi")
 public class CreateEventActivity extends FragmentActivity implements ConnectionCallbacks, LocationListener, OnConnectionFailedListener,
-	OnMyLocationButtonClickListener, OnMapClickListener {
+	OnMyLocationButtonClickListener, OnMapClickListener, OnMapLongClickListener {
 
     private static final class Data {
 	public int    type;
 	public String imageUrl;
 	public double latitude;
 	public double longitude;
+	public String selectedAddress;
     }
 
     private static final class Views {
@@ -58,7 +61,7 @@ public class CreateEventActivity extends FragmentActivity implements ConnectionC
 	public EditText    description;
 	public Button      date;
 	public Button      time;
-	public Button      location;
+	public TextView    location;
 	public MapFragment mapFragment;
     }
 
@@ -97,6 +100,7 @@ public class CreateEventActivity extends FragmentActivity implements ConnectionC
 	views.description = (EditText) findViewById(R.id.description);
 	views.date = (Button) findViewById(R.id.date);
 	views.time = (Button) findViewById(R.id.time);
+	views.location = (TextView) findViewById(R.id.loc_address);
 	final FragmentManager fragmentManager = getSupportFragmentManager();
 	views.mapFragment = (MapFragment) fragmentManager.findFragmentById(R.id.map_fragment);
     }
@@ -140,10 +144,7 @@ public class CreateEventActivity extends FragmentActivity implements ConnectionC
 	customActionBarView.findViewById(R.id.actionbar_done).setOnClickListener(new View.OnClickListener() {
 	    @Override
 	    public void onClick(View v) {
-		if (saveState()) {
-		    setResult(RESULT_OK);
-		    finish();
-		}
+		saveState();
 	    }
 	});
 	final ActionBar actionBar = getActionBar();
@@ -180,14 +181,22 @@ public class CreateEventActivity extends FragmentActivity implements ConnectionC
 	outState.putParcelable(ContentProvider.CONTENT_ITEM_TYPE, eventUri);
     }
 
-    private String showAddressSuggestionDialog(LatLng position) {
+    private void showAddressSuggestionDialog(LatLng position) {
 	AddressSuggestionDialog asd = new AddressSuggestionDialog();
+	asd.setCallback(new AddressSuggestionDialog.Callback() {
+	    @Override
+	    public void onAddressSelected(String selectedAddress) {
+		data.selectedAddress = selectedAddress;
+		if (views.location != null && selectedAddress != null) {
+		    views.location.setText(selectedAddress);
+		}
+	    }
+	});
+	asd.setPosition(position);
 	asd.show(getSupportFragmentManager(), null);
-	return null;
     }
 
     private boolean saveState() {
-	showAddressSuggestionDialog(new LatLng(data.latitude, data.longitude));
 	String name = views.name.getText().toString();
 	String description = views.description.getText().toString();
 	String date = views.date.getText().toString();
@@ -207,12 +216,15 @@ public class CreateEventActivity extends FragmentActivity implements ConnectionC
 	values.put(EventsTable.COL_IMAGEURL, data.imageUrl);
 	values.put(EventsTable.COL_LAT, data.latitude);
 	values.put(EventsTable.COL_LNG, data.longitude);
+	values.put(EventsTable.COL_LOC_ADDRESS, data.selectedAddress);
 	if (eventUri == null) {
 	    eventUri = getContentResolver().insert(ContentProvider.CONTENT_URI, values);
 	} else {
 	    Log.w("CreateEventActivity", eventUri.toString());
 	    getContentResolver().update(eventUri, values, null, null);
 	}
+	setResult(RESULT_OK);
+	finish();
 	return true;
     }
 
@@ -308,6 +320,7 @@ public class CreateEventActivity extends FragmentActivity implements ConnectionC
 	    if (map != null) {
 		map.setMyLocationEnabled(true);
 		map.setOnMapClickListener(this);
+		map.setOnMapLongClickListener(this);
 		map.setOnMyLocationButtonClickListener(this);
 	    }
 	}
@@ -325,6 +338,12 @@ public class CreateEventActivity extends FragmentActivity implements ConnectionC
 	    map.clear();
 	    map.addMarker(markerOptions);
 	}
+    }
+
+    @Override
+    public void onMapLongClick(LatLng point) {
+	onMapClick(point);
+	showAddressSuggestionDialog(new LatLng(data.latitude, data.longitude));
     }
 
 }
