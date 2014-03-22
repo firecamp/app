@@ -1,75 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@android:color/transparent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent" >
 
     <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/event_box"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/event_box"
         android:orientation="vertical" >
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="wrap_content" >
-
+            android:orientation="vertical" >
 
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
                 android:layout_marginTop="3dp"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/bottom_stroke"
+                android:background="@android:color/transparent"
                 android:orientation="vertical" >
 
                 <TextView
                     android:id="@+id/event_row_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginTop="8dp"
                     android:text="Event Title Here"
                     android:textColor="#776da8"
                     android:textSize="25sp" />
-                
+                <LinearLayout 
+                   android:layout_width="match_parent"
+                   android:layout_height="2dp"
+                   android:layout_alignBottom="@id/event_row_name"
+                   android:background="@drawable/bottom_stroke" >
+                    
+                </LinearLayout>
             </RelativeLayout>
 
-                <TextView
-                    android:textAllCaps="true"
-                    android:textColor="#A4A4A4"
-                    android:id="@+id/event_row_author"
-                    android:textSize="18sp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="2dp"
-                    android:text="Firecamp Habibi"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:id="@+id/event_row_description"
-                    android:layout_width="match_parent"
-                    android:layout_marginLeft="12dp"
-                    android:textSize="16sp"
-                    android:layout_height="wrap_content"
-                    android:text="description of event" />
-            
+            <TextView
+                android:id="@+id/event_row_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="30dp"
+                android:text="description of event"
+                android:textSize="16sp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
                 android:orientation="horizontal"
-                android:layout_marginLeft="12dp" >
+                android:layout_marginBottom="5dp" >
 
                 <ImageView
                     android:layout_width="25dp"
@@ -80,27 +73,26 @@
                     android:id="@+id/event_row_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginLeft="4dp" />
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="3dp" />
+
                 <TextView
                     android:id="@+id/event_row_time"
                     android:layout_width="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp" />
 
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginLeft="15dp"
-                    android:src="@drawable/pin"/>
-
+                    android:src="@drawable/pin" />
 
                 <TextView
                     android:id="@+id/event_row_location"
                     android:layout_width="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:layout_height="wrap_content" />
-                
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -112,54 +104,72 @@
             android:layout_marginRight="2dp"
             android:layout_marginTop="4dp"
             android:scaleType="centerCrop" />
+        
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:background="@drawable/event_fill_color">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/event_bottom"
+            android:orientation="horizontal"
+            android:weightSum="2" >
 
-            
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/right_stroke"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_like" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:weightSum="2" >
-
-
-                    <ImageButton
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/right_stroke"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/ic_like" />
-
-                <ImageButton
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_weight="1"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@android:color/transparent"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/share" />
-
-            </LinearLayout>
+                android:scaleType="centerInside"
+                android:src="@drawable/share" />
         </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 
     <ImageButton
         android:id="@+id/post_profile_Button1"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginTop="3dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="3dp"
         android:background="@drawable/rounded_corner"
         android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/event_row_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="57dp"
+        android:text="Firecamp Habibi"
+        android:textAllCaps="false"
+        android:textColor="#A4A4A4"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>
