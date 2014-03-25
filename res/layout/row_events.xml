@@ -39,12 +39,12 @@
                     android:text="Event Title Here"
                     android:textColor="#776da8"
                     android:textSize="25sp" />
-                <LinearLayout 
-                   android:layout_width="match_parent"
-                   android:layout_height="2dp"
-                   android:layout_alignBottom="@id/event_row_name"
-                   android:background="@drawable/bottom_stroke" >
-                    
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_alignBottom="@id/event_row_name"
+                    android:background="@drawable/bottom_stroke" >
                 </LinearLayout>
             </RelativeLayout>
 
@@ -60,9 +60,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="12dp"
-                android:orientation="horizontal"
-                android:layout_marginBottom="5dp" >
+                android:orientation="horizontal" >
 
                 <ImageView
                     android:layout_width="25dp"
@@ -104,46 +104,46 @@
             android:layout_marginRight="2dp"
             android:layout_marginTop="4dp"
             android:scaleType="centerCrop" />
-        
-        <LinearLayout 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:background="@drawable/event_fill_color">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            android:background="@drawable/event_bottom"
-            android:orientation="horizontal"
-            android:weightSum="2" >
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:background="@drawable/event_fill_color" >
 
-            <ImageButton
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/right_stroke"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_like" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/event_bottom"
+                android:orientation="horizontal"
+                android:weightSum="2" >
 
-            <ImageButton
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:scaleType="centerInside"
-                android:src="@drawable/share" />
-        </LinearLayout>
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/right_stroke"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_like" />
+
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/share" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
