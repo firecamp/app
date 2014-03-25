@@ -98,6 +98,8 @@ public class ProfileActivity extends Activity {
 	    @Override
 	    public void onCompleted(Response response) {
 		JSONObject cover = (JSONObject) response.getGraphObject().getProperty("cover");
+		if (cover == null)
+		    return;
 		String url = null;
 		try {
 		    url = cover.getString("source");
