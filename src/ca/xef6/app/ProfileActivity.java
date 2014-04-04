@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.FrameLayout.LayoutParams;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import ca.xef6.app.ui.Activity;
@@ -25,7 +26,6 @@ import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.model.GraphObjectList;
 import com.facebook.model.GraphUser;
-import com.facebook.widget.ProfilePictureView;
 
 public class ProfileActivity extends Activity {
 
@@ -78,9 +78,11 @@ public class ProfileActivity extends Activity {
 
 		GraphObjectList<GraphUser> users = response.getGraphObject().getPropertyAsList("data", GraphUser.class);
 		for (GraphUser user : users) {
-		    ProfilePictureView profilePictureView = new ProfilePictureView(activity);
+		    ImageView profilePictureView = new ImageView(activity);
+		    //ProfilePictureView profilePictureView = new ProfilePictureView(activity);
 		    profilePictureView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
-		    profilePictureView.setProfileId(user.getId());
+		    //profilePictureView.setProfileId(user.getId());
+		    new ProfilePictureDownloadTask(profilePictureView, getResources()).execute(user.getId());
 		    mutualFriendsLayout.addView(profilePictureView);
 		}
 

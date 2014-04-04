@@ -61,6 +61,7 @@ public class ProfilePictureDownloadTask extends AsyncTask<String, Void, Bitmap> 
 	paint.setXfermode(new PorterDuffXfermode(Mode.MULTIPLY));
 	Canvas c = new Canvas();
 	c.setBitmap(image);
+	//c.drawBitmap(Bitmap.createScaledBitmap(sourceImage, image.getWidth(), image.getHeight(), false), 0, 0, null);
 	c.drawBitmap(Bitmap.createScaledBitmap(sourceImage, image.getWidth(), image.getHeight(), false), 0, 0, null);
 	c.drawBitmap(mask, 0, 0, paint);
 
