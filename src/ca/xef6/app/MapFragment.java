@@ -1,5 +1,7 @@
 package ca.xef6.app;
 
+import java.util.ArrayList;
+
 import android.database.Cursor;
 import android.location.Location;
 import android.os.Bundle;
@@ -47,6 +49,9 @@ public class MapFragment
 
     private LocationClient               locationClient;
     private GoogleMap                    map;
+
+    private ArrayList<MarkerOptions>     mOptions;
+    private ArrayList<Integer>           mZoomLevels;
 
     private void initialize() {
         initializeLocationClient();
@@ -106,16 +111,15 @@ public class MapFragment
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        Log.w("MapFragment", "adding markers... current zoom level = " + zoomLevel);
         if (data.moveToFirst()) {
+            mOptions.clear();
+            mZoomLevels.clear();
             do {
                 final float latitude = data.getFloat(data.getColumnIndexOrThrow(EventsTable.COL_LAT));
                 final float longitude = data.getFloat(data.getColumnIndexOrThrow(EventsTable.COL_LNG));
                 final String title = data.getString(data.getColumnIndexOrThrow(EventsTable.COL_NAME));
-                final int markerZoomLevel = data.getInt(data.getColumnIndexOrThrow(EventsTable.COL_ZOOM_LEVEL));
-                if (map != null && markerZoomLevel > zoomLevel) {
-                    map.addMarker(new MarkerOptions().title(title).position(new LatLng(latitude, longitude)));
-                }
+                mOptions.add(new MarkerOptions().title(title).position(new LatLng(latitude, longitude)));
+                mZoomLevels.add(data.getInt(data.getColumnIndexOrThrow(EventsTable.COL_ZOOM_LEVEL)));
             } while (data.moveToNext());
         }
     }
@@ -150,6 +154,14 @@ public class MapFragment
     @Override
     public void onCameraChange(CameraPosition position) {
         zoomLevel = position.zoom;
+        Log.w("MapFragment", "adding markers... current zoom level = " + zoomLevel);
+        if (map != null) {
+            map.clear();
+            for (int i = 0; i < mOptions.size(); i++) {
+                int markerZoomLevel = mZoomLevels.get(i);
+                map.addMarker(mOptions.get(i));
+            }
+        }
     }
 
 }
