@@ -132,7 +132,7 @@ public class MapFragment
             for (int i = 0; i < mOptions.size(); i++) {
                 int markerZoomLevel = mZoomLevels.get(i);
                 Log.w("MapFragment", "marker: " + markerZoomLevel + ", map: " + zoomLevel);
-                if (markerZoomLevel > zoomLevel) {
+                if (markerZoomLevel < zoomLevel) {
                     //Log.w("MapFragment", "OK");
                     map.addMarker(mOptions.get(i));
                 }
