@@ -115,7 +115,7 @@ public class CreateEventActivity extends FragmentActivity implements ConnectionC
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                data.zoomLevel = progress;
+                data.zoomLevel = progress + 2;
                 views.zoomLevelValue.setText(String.valueOf(data.zoomLevel));
             }
 
