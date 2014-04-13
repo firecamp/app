@@ -57,6 +57,7 @@ public class MapFragment
         initializeLocationClient();
         initializeMap();
         locationClient.connect();
+        map.setOnCameraChangeListener(this);
     }
 
     private void initializeLocationClient() {
