@@ -40,18 +40,18 @@ public class MapFragment
         OnMyLocationButtonClickListener,
         OnCameraChangeListener {
 
-    private static final LocationRequest LOCATION_REQUEST = LocationRequest.create()
-                                                                  .setInterval(5000)
-                                                                  .setFastestInterval(16)
-                                                                  .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    private static final LocationRequest   LOCATION_REQUEST = LocationRequest.create()
+                                                                    .setInterval(5000)
+                                                                    .setFastestInterval(16)
+                                                                    .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
-    private float                        zoomLevel;
+    private float                          zoomLevel;
 
-    private LocationClient               locationClient;
-    private GoogleMap                    map;
+    private LocationClient                 locationClient;
+    private GoogleMap                      map;
 
-    private ArrayList<MarkerOptions>     mOptions;
-    private ArrayList<Integer>           mZoomLevels;
+    final private ArrayList<MarkerOptions> mOptions         = new ArrayList<MarkerOptions>();
+    final private ArrayList<Integer>       mZoomLevels      = new ArrayList<Integer>();
 
     private void initialize() {
         initializeLocationClient();
