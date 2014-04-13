@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,17 +21,29 @@ import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapFragment extends ca.xef6.app.ui.MapFragment
-        implements ConnectionCallbacks, OnConnectionFailedListener, LoaderCallbacks<Cursor>, LocationListener, OnMyLocationButtonClickListener {
+public class MapFragment
+        extends
+        ca.xef6.app.ui.MapFragment
+        implements
+        ConnectionCallbacks,
+        OnConnectionFailedListener,
+        LoaderCallbacks<Cursor>,
+        LocationListener,
+        OnMyLocationButtonClickListener,
+        OnCameraChangeListener {
 
     private static final LocationRequest LOCATION_REQUEST = LocationRequest.create()
                                                                   .setInterval(5000)
                                                                   .setFastestInterval(16)
                                                                   .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+    private float                        zoomLevel;
 
     private LocationClient               locationClient;
     private GoogleMap                    map;
@@ -88,17 +101,19 @@ public class MapFragment extends ca.xef6.app.ui.MapFragment
     }
 
     @Override
-    public void onLoaderReset(Loader<Cursor> loader) { // TODO
+    public void onLoaderReset(Loader<Cursor> loader) {
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) { // TODO
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        Log.w("MapFragment", "adding markers... current zoom level = " + zoomLevel);
         if (data.moveToFirst()) {
             do {
                 final float latitude = data.getFloat(data.getColumnIndexOrThrow(EventsTable.COL_LAT));
                 final float longitude = data.getFloat(data.getColumnIndexOrThrow(EventsTable.COL_LNG));
                 final String title = data.getString(data.getColumnIndexOrThrow(EventsTable.COL_NAME));
-                if (map != null) {
+                final int markerZoomLevel = data.getInt(data.getColumnIndexOrThrow(EventsTable.COL_ZOOM_LEVEL));
+                if (map != null && markerZoomLevel > zoomLevel) {
                     map.addMarker(new MarkerOptions().title(title).position(new LatLng(latitude, longitude)));
                 }
             } while (data.moveToNext());
@@ -130,6 +145,11 @@ public class MapFragment extends ca.xef6.app.ui.MapFragment
     public void onResume() {
         super.onResume();
         initialize();
+    }
+
+    @Override
+    public void onCameraChange(CameraPosition position) {
+        zoomLevel = position.zoom;
     }
 
 }
