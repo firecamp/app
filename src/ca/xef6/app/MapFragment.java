@@ -122,6 +122,18 @@ public class MapFragment
                 mZoomLevels.add(data.getInt(data.getColumnIndexOrThrow(EventsTable.COL_ZOOM_LEVEL)));
             } while (data.moveToNext());
         }
+        updateMap();
+    }
+
+    private void updateMap() {
+        if (map != null) {
+            map.clear();
+            for (int i = 0; i < mOptions.size(); i++) {
+                int markerZoomLevel = mZoomLevels.get(i);
+                Log.w("MapFragment", "marker: " + markerZoomLevel + ", map: " + zoomLevel);
+                map.addMarker(mOptions.get(i));
+            }
+        }
     }
 
     @Override
@@ -155,13 +167,7 @@ public class MapFragment
     public void onCameraChange(CameraPosition position) {
         zoomLevel = position.zoom;
         Log.w("MapFragment", "adding markers... current zoom level = " + zoomLevel);
-        if (map != null) {
-            map.clear();
-            for (int i = 0; i < mOptions.size(); i++) {
-                int markerZoomLevel = mZoomLevels.get(i);
-                map.addMarker(mOptions.get(i));
-            }
-        }
+        updateMap();
     }
 
 }
